@@ -65,7 +65,7 @@ export function compileNgModuleFactory__POST_R3__<M>(
 
   const moduleFactory = new R3NgModuleFactory(moduleType);
 
-  // All of the logic below is irrelevant for AOT-compiled code.
+  // 以下所有逻辑与AOT编译的代码无关
   if (typeof ngJitMode !== 'undefined' && !ngJitMode) {
     return Promise.resolve(moduleFactory);
   }
@@ -103,9 +103,9 @@ export function compileNgModuleFactory__POST_R3__<M>(
       .then(() => moduleFactory);
 }
 
-// the `window.ng` global utilities are only available in non-VE versions of
-// Angular. The function switch below will make sure that the code is not
-// included into Angular when PRE mode is active.
+//`window.ng`全局实用程序仅在非VE版本的
+//Angular。 下面的功能开关将确保代码不是
+//当PRE模式激活时，包含在Angular中。
 export function publishDefaultGlobalUtils__PRE_R3__() {}
 export function publishDefaultGlobalUtils__POST_R3__() {
   ngDevMode && _publishDefaultGlobalUtils();

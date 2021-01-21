@@ -43,36 +43,36 @@ export function _localeFactory(locale?: string): string {
 }
 
 /**
- * Work out the locale from the potential global properties.
+ * 从潜在的全局属性中计算出区域设置
  *
- * * Closure Compiler: use `goog.LOCALE`.
- * * Ivy enabled: use `$localize.locale`
+ * *闭包编译器：使用`goog.LOCALE`.
+ * *启用常春藤：使用`$localize.locale`
  */
 export function getGlobalLocale(): string {
   if (typeof ngI18nClosureMode !== 'undefined' && ngI18nClosureMode &&
       typeof goog !== 'undefined' && goog.LOCALE !== 'en') {
-    // * The default `goog.LOCALE` value is `en`, while Angular used `en-US`.
-    // * In order to preserve backwards compatibility, we use Angular default value over
-    //   Closure Compiler's one.
+    // *默认的`goog.LOCALE`值为`en`，而Angular使用`en-US`。
+    // *为了保持向后兼容性，我们使用Angular默认值
+    //关闭编译器的
     return goog.LOCALE;
   } else {
-    // KEEP `typeof $localize !== 'undefined' && $localize.locale` IN SYNC WITH THE LOCALIZE
-    // COMPILE-TIME INLINER.
+    //与本地化保持同步`typeof $ localize！=='undefined'&& $ localize.locale`
+    //编译时内联程序。
     //
-    // * During compile time inlining of translations the expression will be replaced
-    //   with a string literal that is the current locale. Other forms of this expression are not
-    //   guaranteed to be replaced.
+    // *在编译时内联翻译时，表达式将被替换
+    //使用字符串文字作为当前语言环境。 此表达式的其他形式不是
+    //保证可以更换。
     //
-    // * During runtime translation evaluation, the developer is required to set `$localize.locale`
-    //   if required, or just to provide their own `LOCALE_ID` provider.
+    // *在运行时翻译评估期间，开发人员需要设置$ localize.locale
+    //如果需要，或者仅提供自己的`LOCALE_ID`提供程序。
     return (ivyEnabled && typeof $localize !== 'undefined' && $localize.locale) ||
         DEFAULT_LOCALE_ID;
   }
 }
 
 /**
- * A built-in [dependency injection token](guide/glossary#di-token)
- * that is used to configure the root injector for bootstrapping.
+ *内置的[依赖关系注入令牌]（指南/词汇表＃di-令牌）
+ *用于配置根注入器进行引导。
  */
 export const APPLICATION_MODULE_PROVIDERS: StaticProvider[] = [
   {
@@ -99,13 +99,13 @@ export const APPLICATION_MODULE_PROVIDERS: StaticProvider[] = [
 ];
 
 /**
- * Schedule work at next available slot.
+ * 将工作安排在下一个可用插槽中。
  *
- * In Ivy this is just `requestAnimationFrame`. For compatibility reasons when bootstrapped
- * using `platformRef.bootstrap` we need to use `NgZone.onStable` as the scheduling mechanism.
- * This overrides the scheduling mechanism in Ivy to `NgZone.onStable`.
+ *在Ivy中，这只是`requestAnimationFrame`。 出于兼容性原因引导时
+ *使用`platformRef.bootstrap`，我们需要使用`NgZone.onStable`作为调度机制。
+ *这将覆盖Ivy中的到NgZone.onStable的调度机制。
  *
- * @param ngZone NgZone to use for scheduling.
+ * @param ngZone NgZone用于订阅.
  */
 export function zoneSchedulerFactory(ngZone: NgZone): (fn: () => void) => void {
   let queue: (() => void)[] = [];
@@ -120,12 +120,12 @@ export function zoneSchedulerFactory(ngZone: NgZone): (fn: () => void) => void {
 }
 
 /**
- * Configures the root injector for an app with
- * providers of `@angular/core` dependencies that `ApplicationRef` needs
- * to bootstrap components.
+ *为应用配置根注入器
+ * ApplicationRef需要的@ angular / core依赖提供者
+ *引导组件。
  *
- * Re-exported by `BrowserModule`, which is included automatically in the root
- * `AppModule` when you create a new app with the CLI `new` command.
+ *由`BrowserModule`重新导出，该文件自动包含在根目录中
+ *使用CLI`new`命令创建新应用程序时，`AppModule`。
  *
  * @publicApi
  */
